@@ -28,6 +28,17 @@ app.use('/api/saving', savingRoutes);
 app.use('/api/loan', loanRoutes);
 app.use('/api/news', newsRoutes);
 
+// Error Handling Middleware (Optional but recommended)
+const handleError = (err, res) => {
+  console.error(err);
+  res.status(500).json({ message: 'Error occurred' });
+};
+
+// Error Handling Middleware (Optional but recommended)
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
+
 // Start server
 
 app.listen(process.env.PORT , () => console.log(`Server is running on port ${process.env.PORT}`));
