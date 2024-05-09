@@ -11,8 +11,8 @@ router.get('/getalluser',userController.getAllUser);
 router.put('/updateuser',userController.updateUser);
 router.put('/promoteadmin',userController.promoteAdmin);
 router.put('/demoteadmin',userController.demoteAdmin); 
-router.get('/profile',auth_middleware,userController.getProfile);
 router.post('/reset',userController.resetPasswod); 
-
+router.get('/profile',auth_middleware,userController.getProfile);
+router.get('/self',auth_middleware,userController.getMyUser);
 
 module.exports=router;
