@@ -3,12 +3,12 @@ const Loan = require('../models/Loan');
 const User = require('../models/User');
 
 // Create loan route
-exports.creatLoans=async (req, res) => {
-  // Get the user id from the request body
-  const { userId } = req.body;
+exports.createLoans = async (req, res) => {
+  // Get the user idno from the request body
+  const { userIdno } = req.body;
 
-  // Get the user by id
-  const user = await User.findById(userId);
+  // Get the user by idno
+  const user = await User.findOne({ idno: userIdno });
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
@@ -28,6 +28,7 @@ exports.creatLoans=async (req, res) => {
   // Return success response
   res.status(201).json({ message: 'Loan created successfully', loan: newLoan });
 };
+
 
 // Get loans route
 exports.getLoans= async (req, res) => {
