@@ -40,21 +40,22 @@ exports.getLoans= async (req, res) => {
 
 // Update loan route
 exports.putLoans= async (req, res) => {
-  // Get the loan id from the request params
   const { id } = req.params;
+  const { status } = req.body;
 
-  // Get the loan data from the request body
-  const { amount } = req.body;
+  try {
+    const updatedLoan = await Loan.findByIdAndUpdate(id, { status }, { new: true });
 
-  // Update the loan object
-  const updatedLoan = await Loan.findByIdAndUpdate(id, {
-    amount,
-  });
+    if (!updatedLoan) {
+      return res.status(404).json({ message: 'Loan not found' });
+    }
 
-  // Return success response
-  res.status(200).json({ message: 'Loan updated successfully', loan: updatedLoan });
+    res.json(updatedLoan);
+  } catch (error) {
+    console.error('Failed to update loan status:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
-
 // Delete loan route
 exports.deleteLoans= async (req, res) => {
   // Get the loan id from the request params
