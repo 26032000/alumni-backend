@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 const savingController = require('../controllers/savingController');
 
-// Create saving route
-router.post('/', savingController.createSaving);
+// Deposit savings
+router.post('/', savingController.depositSavings);
 
-// Get savings route
+// Get all savings
 router.get('/', savingController.getSavings);
 
-// Update saving route
-router.put('/:id', savingController.editSavings);
+// Get savings by ID
+router.get('/:id', savingController.getSavingsById);
 
-// Delete saving route
+// Delete savings by ID
 router.delete('/:id', savingController.deleteSavings);
 
 module.exports = router;

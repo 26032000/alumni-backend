@@ -2,16 +2,22 @@ const express = require('express');
 const router = express.Router();
 const loanController = require('../controllers/loanController');
 
-// Create loan route
-router.post('/', loanController.creatLoans);
+// Apply for a loan
+router.post('/', loanController.applyLoan);
 
-// Get loans route
-router.get('/', loanController.getLoans);
+// Approve a loan
+router.put('/:id/approve', loanController.approveLoan);
 
-// Update loan route
-router.put('/:id', loanController.putLoans);
+// Pay a loan
+router.put('/:id/pay', loanController.payLoan);
 
-// Delete loan route
-router.delete('/:id', loanController.deleteLoans);
+// Get all applied loans
+router.get('/applied', loanController.getAppliedLoans);
+
+// Check loan eligibility
+router.post('/check-eligibility', loanController.checkLoanEligibility);
+
+// Delete a loan
+router.delete('/:id', loanController.deleteLoan);
 
 module.exports = router;

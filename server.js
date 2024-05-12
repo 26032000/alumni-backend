@@ -7,6 +7,8 @@ const eventRoutes = require('./routes/eventRoutes');
 const savingRoutes = require('./routes/savingRoutes');
 const loanRoutes = require('./routes/loanRoute');
 const newsRoutes = require('./routes/newsRoutes');
+const shareRoutes=require('./routes/sharesRoute');
+const transactionRoutes = require('./routes/transactonRoutes');
 
 
 
@@ -27,6 +29,8 @@ app.use('/api/event', eventRoutes);
 app.use('/api/saving', savingRoutes);
 app.use('/api/loan', loanRoutes);
 app.use('/api/news', newsRoutes);
+app.use('/api/share', shareRoutes);
+app.use('/api/transaction', transactionRoutes);
 
 // Error Handling Middleware (Optional but recommended)
 const handleError = (err, res) => {
