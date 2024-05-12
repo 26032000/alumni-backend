@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const sharesController = require('../controllers/shareController');
+const auth_middleware=require('../middlewares/auth_mid');
 
 // GET all shares
 router.get('/', sharesController.getAllShares);
 
 // GET all shares of a single user
-router.get('/user', sharesController.getSharesByUser);
+router.get('/user',auth_middleware, sharesController.getSharesByUser);
 
 // GET share by ID
 router.get('/:id', sharesController.getShareById);
