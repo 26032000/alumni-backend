@@ -1,5 +1,9 @@
 const Share = require('../models/Shares');
 const Transaction = require('../models/Transactions');
+const mongoose = require('mongoose');
+
+
+
 // Controller function to get all shares
 exports.getAllShares = async (req, res) => {
   try {
@@ -11,8 +15,14 @@ exports.getAllShares = async (req, res) => {
   }
 };
 // Controller function to get all shares of a single user
+// Controller function to get all shares of a single user
 exports.getSharesByUser = async (req, res) => {
   try {
+    // Check if req.user or req.user.id is undefined
+    if (!req.user || !req.user.id) {
+      return res.status(400).json({ message: 'User ID not found' });
+    }
+
     const shares = await Share.find({ user: req.user.id });
     const totalShares = await Share.countDocuments({ user: req.user.id });
     res.json({ shares, totalShares });
@@ -21,6 +31,7 @@ exports.getSharesByUser = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
 
 // Controller function to get share by ID
 exports.getShareById = async (req, res) => {
@@ -92,6 +103,11 @@ exports.deleteShareById = async (req, res) => {
 exports.buyShare = async (req, res) => {
   try {
     const { shareId, userId, quantity } = req.body;
+
+    // Check if userId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
 
     // Retrieve the share from the database
     const share = await Share.findById(shareId);
