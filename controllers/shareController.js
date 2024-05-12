@@ -10,6 +10,17 @@ exports.getAllShares = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+// Controller function to get all shares of a single user
+exports.getSharesByUser = async (req, res) => {
+  try {
+    const shares = await Share.find({ user: req.user.id });
+    const totalShares = await Share.countDocuments({ user: req.user.id });
+    res.json({ shares, totalShares });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
 
 // Controller function to get share by ID
 exports.getShareById = async (req, res) => {
@@ -75,6 +86,7 @@ exports.deleteShareById = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
 
 // Controller function to buy shares
 exports.buyShare = async (req, res) => {

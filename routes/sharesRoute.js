@@ -5,6 +5,9 @@ const sharesController = require('../controllers/shareController');
 // GET all shares
 router.get('/', sharesController.getAllShares);
 
+// GET all shares of a single user
+router.get('/user', sharesController.getSharesByUser);
+
 // GET share by ID
 router.get('/:id', sharesController.getShareById);
 
